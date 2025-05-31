@@ -4,6 +4,7 @@ import 'CustomScheduleInputPage.dart';
 import 'menuPage.dart';
 import 'personal_info_page.dart';
 import 'FavoriteRoutesPage.dart';
+import 'call_page.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -48,6 +49,13 @@ class _CalendarPageState extends State<CalendarPage> {
     }
   }
 
+  void _showCallPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CallPage()),
+    );
+  }
+
   List<Event> _getEventsForDay(DateTime day) {
     final key = DateTime.utc(day.year, day.month, day.day);
     return _schedules[key]?.map((s) => Event(s)).toList() ?? [];
@@ -62,6 +70,11 @@ class _CalendarPageState extends State<CalendarPage> {
         appBar: AppBar(
           title: const Text('일정 확인'),
           actions: [
+            IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: _showCallPage,
+              tooltip: '알림',
+            ),
             IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
@@ -135,18 +148,18 @@ class _CalendarPageState extends State<CalendarPage> {
             )
           ],
         ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const PersonalInfoPage(),
-          ),
-        );
-        },
-      backgroundColor: Colors.blueAccent,
-      child: const Icon(Icons.person),
-    ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PersonalInfoPage(),
+              ),
+            );
+          },
+          backgroundColor: Colors.blueAccent,
+          child: const Icon(Icons.person),
+        ),
       ),
     );
   }
